@@ -75,7 +75,7 @@ export default function RootLayout({
     url: "https://affanraza.dev",
     sameAs: [
       "https://github.com/affanraza84",
-      "https://linkedin.com/in/affanraza84",
+      "https://www.linkedin.com/in/mohammad-affan-raza-b6039b288/",
     ],
     knowsAbout: [
       "Next.js",

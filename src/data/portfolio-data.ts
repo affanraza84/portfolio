@@ -19,7 +19,7 @@ export const PERSONAL_INFO = {
   location: "Remote / Worldwide (IST)",
   email: "affanraza8081@gmail.com",
   github: "https://github.com/affanraza84",
-  linkedin: "https://linkedin.com/in/affanraza84",
+  linkedin: "https://www.linkedin.com/in/mohammad-affan-raza-b6039b288/",
 };
 
 export const CREDIBILITY_BADGES = [
