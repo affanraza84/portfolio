@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { PERSONAL_INFO } from "@/data/portfolio-data";
-import { X, Mail, Copy, Check, Send, Sparkles } from "lucide-react";
+import { X, Mail, Copy, Check, Send, Sparkles, Loader2, AlertCircle } from "lucide-react";
 
 export function ContactModal({
   isOpen,
@@ -15,10 +15,12 @@ export function ContactModal({
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    roleOrProject: "",
+    projectType: "Full-Stack Web App",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -28,17 +30,41 @@ export function ContactModal({
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    setSent(true);
-    const subject = encodeURIComponent(
-      `Portfolio Inquiry from ${formData.name} (${formData.roleOrProject || "General"})`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nScope/Role: ${formData.roleOrProject}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit message.");
+      }
+
+      setSent(true);
+    } catch (err: unknown) {
+      console.error("Modal submission error:", err);
+      const subject = encodeURIComponent(
+        `Portfolio Inquiry from ${formData.name} (${formData.projectType})`
+      );
+      const body = encodeURIComponent(
+        `Name: ${formData.name}\nEmail: ${formData.email}\nScope: ${formData.projectType}\n\nMessage:\n${formData.message}`
+      );
+      setErrorMessage("Falling back to mail client...");
+      window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -60,7 +86,7 @@ export function ContactModal({
           </div>
           <h3 className="text-xl font-bold text-white">Let&apos;s Work Together</h3>
           <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-            Send a quick inquiry or copy my direct email.
+            Information will be saved directly and notified to my inbox.
           </p>
         </div>
 
@@ -96,10 +122,10 @@ export function ContactModal({
               <Check className="w-5 h-5" />
             </div>
             <h4 className="text-sm font-bold text-white">
-              Direct Mail Draft Generated
+              Inquiry Successfully Sent!
             </h4>
             <p className="text-xs text-zinc-400 max-w-xs mx-auto">
-              Your message is ready in your email client.
+              Saved to database and notified to affanraza8081@gmail.com. I will get back to you soon.
             </p>
             <button
               onClick={onClose}
@@ -110,6 +136,13 @@ export function ContactModal({
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-3.5">
+            {errorMessage && (
+              <div className="p-2.5 rounded bg-red-500/10 border border-red-500/30 flex items-center gap-2 text-xs text-red-300">
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+
             <div>
               <label className="block text-[11px] font-mono uppercase text-zinc-400 mb-1">
                 Name *
@@ -149,9 +182,9 @@ export function ContactModal({
               <input
                 type="text"
                 placeholder="e.g. Next.js SaaS MVP or Full-Stack Role"
-                value={formData.roleOrProject}
+                value={formData.projectType}
                 onChange={(e) =>
-                  setFormData({ ...formData, roleOrProject: e.target.value })
+                  setFormData({ ...formData, projectType: e.target.value })
                 }
                 className="w-full px-3 py-2 rounded-lg bg-[#0c0c0f] border border-white/[0.08] text-xs sm:text-sm text-white focus:outline-none focus:border-amber-500 transition-colors"
               />
@@ -175,10 +208,20 @@ export function ContactModal({
 
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-white text-zinc-950 hover:bg-zinc-200 font-semibold text-xs uppercase tracking-wider transition-colors mt-2"
+              disabled={loading}
+              className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-white text-zinc-950 hover:bg-zinc-200 disabled:opacity-75 font-semibold text-xs uppercase tracking-wider transition-colors mt-2"
             >
-              <Send className="w-3.5 h-3.5" />
-              <span>Send Message</span>
+              {loading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Submitting...</span>
+                </>
+              ) : (
+                <>
+                  <Send className="w-3.5 h-3.5" />
+                  <span>Send Message</span>
+                </>
+              )}
             </button>
           </form>
         )}

@@ -11,6 +11,8 @@ import {
   Clock,
   Send,
   Sparkles,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 
 export function ContactSection() {
@@ -21,7 +23,9 @@ export function ContactSection() {
     projectType: "Full-Stack Web App",
     message: "",
   });
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
@@ -29,18 +33,45 @@ export function ContactSection() {
     setTimeout(() => setCopied(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
-    
-    // Construct mailto as direct instant backup
-    const subject = encodeURIComponent(`Project Inquiry: ${formState.projectType} from ${formState.name}`);
-    const body = encodeURIComponent(
-      `Name: ${formState.name}\nEmail: ${formState.email}\nProject Type: ${formState.projectType}\n\nMessage:\n${formState.message}`
-    );
-    
-    setSubmitted(true);
-    window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+
+    setLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to submit inquiry.");
+      }
+
+      setSubmitted(true);
+    } catch (err: unknown) {
+      console.error("Form submission error:", err);
+      // If network fails, construct mailto as direct instant backup
+      const subject = encodeURIComponent(
+        `Project Inquiry: ${formState.projectType} from ${formState.name}`
+      );
+      const body = encodeURIComponent(
+        `Name: ${formState.name}\nEmail: ${formState.email}\nProject Type: ${formState.projectType}\n\nMessage:\n${formState.message}`
+      );
+      setErrorMessage(
+        "Could not submit via API directly. You can send it directly via your mail client below."
+      );
+      window.location.href = `mailto:${PERSONAL_INFO.email}?subject=${subject}&body=${body}`;
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -176,31 +207,46 @@ export function ContactSection() {
                 Start a Conversation
               </h3>
               <p className="text-xs text-zinc-400">
-                Share a few details about your project or role.
+                Inquiry details are saved directly and sent to my inbox.
               </p>
             </div>
 
             {submitted ? (
-              <div className="p-6 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/20 text-center space-y-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-                  <Check className="w-5 h-5" />
+              <div className="p-8 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/30 text-center space-y-4 animate-in fade-in duration-200">
+                <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+                  <Check className="w-6 h-6" />
                 </div>
-                <h4 className="text-base font-bold text-white">
-                  Opening Email Client...
+                <h4 className="text-lg font-bold text-white">
+                  Inquiry Received!
                 </h4>
-                <p className="text-xs text-zinc-300 max-w-sm mx-auto leading-relaxed">
-                  Your project message has been prepared. If your mail client didn&apos;t open automatically, feel free to email me directly at{" "}
-                  <span className="font-mono text-amber-300">{PERSONAL_INFO.email}</span>.
+                <p className="text-sm text-zinc-300 max-w-sm mx-auto leading-relaxed">
+                  Thank you, <strong className="text-white">{formState.name}</strong>. Your message has been saved and forwarded to{" "}
+                  <span className="font-mono text-amber-300">affanraza8081@gmail.com</span>. I will review and reply within 12 hours.
                 </p>
                 <button
-                  onClick={() => setSubmitted(false)}
-                  className="text-xs font-mono text-zinc-400 hover:text-white underline pt-2"
+                  onClick={() => {
+                    setSubmitted(false);
+                    setFormState({
+                      name: "",
+                      email: "",
+                      projectType: "Full-Stack Web App",
+                      message: "",
+                    });
+                  }}
+                  className="inline-flex items-center gap-1 text-xs font-mono text-zinc-400 hover:text-white underline pt-2"
                 >
                   Send another message
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {errorMessage && (
+                  <div className="p-3.5 rounded-lg bg-red-500/10 border border-red-500/30 flex items-start gap-2 text-xs text-red-300">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-mono uppercase text-zinc-400 mb-1.5">
@@ -274,10 +320,20 @@ export function ContactSection() {
 
                 <button
                   type="submit"
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-white text-zinc-950 hover:bg-zinc-200 font-semibold text-sm uppercase tracking-wider transition-all shadow-md active:scale-[0.99]"
+                  disabled={loading}
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-white text-zinc-950 hover:bg-zinc-200 disabled:opacity-75 font-semibold text-sm uppercase tracking-wider transition-all shadow-md active:scale-[0.99]"
                 >
-                  <Send className="w-4 h-4" />
-                  <span>Send Project Message</span>
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span>Saving & Notifying...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4" />
+                      <span>Send Project Message</span>
+                    </>
+                  )}
                 </button>
               </form>
             )}

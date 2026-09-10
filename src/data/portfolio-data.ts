@@ -17,7 +17,7 @@ export const PERSONAL_INFO = {
     "I don’t just build interfaces. I build reliable digital products — from the first line of code to deployment.",
   status: "Available for select freelance & full-time roles",
   location: "Remote / Worldwide (IST)",
-  email: "affanraza84@gmail.com",
+  email: "affanraza8081@gmail.com",
   github: "https://github.com/affanraza84",
   linkedin: "https://linkedin.com/in/affanraza84",
 };
