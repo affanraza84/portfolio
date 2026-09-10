@@ -10,6 +10,7 @@ import {
   Terminal,
   Award,
   Briefcase,
+  CheckCircle2,
 } from "lucide-react";
 
 export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
@@ -107,7 +108,18 @@ export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
               <Terminal className="w-4 h-4 text-zinc-500" />
             </div>
             <div className="text-sm font-semibold text-white">Full-Stack Developer</div>
-            <div className="text-xs text-zinc-400 mt-1">End-to-end architecture & APIs</div>
+            <div className="text-xs text-zinc-400 mt-1">End-to-end architecture &amp; APIs</div>
+          </div>
+
+          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
+                Client Success
+              </span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            </div>
+            <div className="text-sm font-semibold text-white">4 Freelance Projects</div>
+            <div className="text-xs text-emerald-400/90 mt-1 font-medium">Delivered with 100% full success</div>
           </div>
 
           <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
@@ -128,19 +140,8 @@ export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
               </span>
               <Award className="w-4 h-4 text-zinc-500" />
             </div>
-            <div className="text-sm font-semibold text-white">GSSoC’26 Top 1%</div>
-            <div className="text-xs text-zinc-400 mt-1">GirlScript Summer of Code contributor</div>
-          </div>
-
-          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                Open Source
-              </span>
-              <Award className="w-4 h-4 text-zinc-500" />
-            </div>
-            <div className="text-sm font-semibold text-white">SSoC’26 Top 1%</div>
-            <div className="text-xs text-zinc-400 mt-1">Social Summer of Code contributor</div>
+            <div className="text-sm font-semibold text-white">Top 1% Contributor</div>
+            <div className="text-xs text-zinc-400 mt-1">GSSoC, SSoC &amp; Rank 64 UnvibeCode</div>
           </div>
         </div>
       </div>

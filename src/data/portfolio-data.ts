@@ -12,7 +12,7 @@ export const PERSONAL_INFO = {
   fullName: "Affan Raza",
   title: "Full-Stack Developer",
   tagline: "Building digital products that are fast, scalable, and built to last.",
-  bio: "I’m Affan, a Full-Stack Developer focused on building modern web applications, scalable backend systems, and polished digital experiences.",
+  bio: "I’m Affan, a Full-Stack Developer with 4 successfully delivered freelance projects, 6 months of industry internship experience, and top 1% open-source recognition.",
   positioningStatement:
     "I don’t just build interfaces. I build reliable digital products — from the first line of code to deployment.",
   status: "Available for select freelance & full-time roles",
@@ -29,18 +29,18 @@ export const CREDIBILITY_BADGES = [
     badge: "Specialization",
   },
   {
+    label: "4 Freelance Projects",
+    detail: "Delivered with 100% full success & client satisfaction",
+    badge: "Track Record",
+  },
+  {
     label: "6 Months Internship",
     detail: "Transit Terminal & BinaryFlo full-stack engineering",
     badge: "Experience",
   },
   {
-    label: "GSSoC’26 Top 1%",
-    detail: "GirlScript Summer of Code elite contributor",
-    badge: "Recognition",
-  },
-  {
-    label: "SSoC’26 Top 1%",
-    detail: "Social Summer of Code elite contributor",
+    label: "Open Source Top 1%",
+    detail: "GSSoC, SSoC Elite contributor & UnvibeCode Rank 64th",
     badge: "Recognition",
   },
 ];
@@ -371,6 +371,34 @@ export const OPEN_SOURCE_RECOGNITIONS: OpenSourceContribution[] = [
 
 export const EXPERIENCE_HISTORY: ExperienceItem[] = [
   {
+    role: "Freelance Full-Stack Developer",
+    company: "Client Engagements (Contract)",
+    duration: "2025 – Present",
+    location: "Remote / Global",
+    type: "Freelance",
+    summary:
+      "Successfully engineered and delivered 4 production-grade freelance projects with 100% full success and client satisfaction, delivering responsive frontends, secure backend APIs, robust database architectures, and automated cloud deployments.",
+    responsibilities: [
+      "Successfully delivered 4 full-stack freelance projects with 100% on-time milestone delivery and client satisfaction.",
+      "Architected and developed modern web applications using Next.js, React, TypeScript, Node.js, and Tailwind CSS.",
+      "Engineered secure backend services with RESTful APIs, JWT authentication, and structured database models using PostgreSQL & MongoDB.",
+      "Translated client business requirements into intuitive UI/UX workflows and high-converting landing pages.",
+      "Configured end-to-end production deployments on Vercel/Cloud platforms with custom domains, SSL, and automated CI/CD.",
+    ],
+    skillsApplied: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "MongoDB",
+      "Tailwind CSS",
+      "REST APIs",
+      "Client Management",
+    ],
+  },
+  {
     role: "Full Stack Engineer",
     company: "Transit Terminal",
     duration: "May 2026 – Jul 2026 · 3 mos",
@@ -525,6 +553,11 @@ export const SERVICES_LIST: ServiceItem[] = [
 
 export const WHY_WORK_WITH_ME = [
   {
+    title: "Proven Track Record",
+    description:
+      "Delivered 4 production freelance projects with 100% full success, strict milestone adherence, and high client satisfaction across full-stack deliverables.",
+  },
+  {
     title: "Full-Stack Autonomy",
     description:
       "I bridge the gap between polished UI engineering and scalable backend infrastructure, eliminating coordination friction and accelerating delivery.",
@@ -533,11 +566,6 @@ export const WHY_WORK_WITH_ME = [
     title: "Engineering Craftsmanship",
     description:
       "I write clean, documented, strictly typed TypeScript that your team can comfortably maintain and extend for years to come.",
-  },
-  {
-    title: "Security & Performance Mindset",
-    description:
-      "Rate limiting, secure token handling, database indexing, and low latency are built into my work by default — not added as afterthoughts.",
   },
   {
     title: "Reliable & Direct Communication",
