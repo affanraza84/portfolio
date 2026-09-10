@@ -55,7 +55,8 @@ export interface SkillCategory {
 
 export interface ExperienceItem {
   role: string;
-  companyPlaceholder: string;
+  company: string;
+  companyPlaceholder?: string;
   duration: string;
   location: string;
   type: string;

@@ -43,8 +43,8 @@ export function ExperienceTimeline() {
                       {exp.role}
                     </h3>
                   </div>
-                  <div className="text-sm text-zinc-400 font-mono">
-                    {exp.companyPlaceholder}
+                  <div className="text-sm sm:text-base font-semibold text-zinc-300">
+                    {exp.company || exp.companyPlaceholder}
                   </div>
                 </div>
 

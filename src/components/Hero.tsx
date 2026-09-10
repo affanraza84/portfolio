@@ -117,8 +117,8 @@ export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
               </span>
               <Briefcase className="w-4 h-4 text-zinc-500" />
             </div>
-            <div className="text-sm font-semibold text-white">5 Months Internship</div>
-            <div className="text-xs text-zinc-400 mt-1">Production web applications</div>
+            <div className="text-sm font-semibold text-white">6 Months Internship</div>
+            <div className="text-xs text-zinc-400 mt-1">Transit Terminal &amp; BinaryFlo</div>
           </div>
 
           <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
