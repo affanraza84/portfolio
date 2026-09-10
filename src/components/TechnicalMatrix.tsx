@@ -75,22 +75,11 @@ export function TechnicalMatrix() {
                       key={skill.name}
                       className="p-3 rounded-lg bg-[#0c0c0f] border border-white/[0.04] hover:border-white/[0.12] transition-colors flex flex-col gap-1"
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center gap-2 min-w-0">
-                          <span
-                            className={`w-1.5 h-1.5 rounded-full shrink-0 ${
-                              skill.highlight ? "bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.5)]" : "bg-zinc-600"
-                            }`}
-                          />
-                          <span className="text-xs sm:text-sm font-semibold text-white truncate">
-                            {skill.name}
-                          </span>
-                        </div>
-                        {skill.highlight && (
-                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-400/10 text-amber-300/90 border border-amber-400/20 shrink-0">
-                            Core
-                          </span>
-                        )}
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.4)] shrink-0" />
+                        <span className="text-xs sm:text-sm font-semibold text-white truncate">
+                          {skill.name}
+                        </span>
                       </div>
                       {skill.note && (
                         <p className="text-[11px] font-mono text-zinc-400 pl-3.5 leading-snug">
