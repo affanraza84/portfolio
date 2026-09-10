@@ -10,14 +10,9 @@ import {
   ChevronDown,
   ChevronUp,
   Cpu,
-  ArrowUpRight,
 } from "lucide-react";
 
-export function SelectedWork({
-  onSelectCaseStudy,
-}: {
-  onSelectCaseStudy?: (id: string) => void;
-}) {
+export function SelectedWork() {
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(
     FEATURED_PROJECTS[0]?.id || null
   );
@@ -183,26 +178,6 @@ export function SelectedWork({
                         ))}
                       </div>
                     </div>
-
-                    {project.caseStudyId && (
-                      <div className="pt-2">
-                        <a
-                          href="#case-study"
-                          onClick={(e) => {
-                            if (onSelectCaseStudy) {
-                              e.preventDefault();
-                              onSelectCaseStudy(project.caseStudyId!);
-                            }
-                          }}
-                          className="w-full inline-flex items-center justify-between p-3.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 hover:bg-amber-500/15 hover:border-amber-500/50 transition-colors text-xs font-mono"
-                        >
-                          <span className="font-semibold">
-                            View Deep-Dive Architectural Breakdown
-                          </span>
-                          <ArrowUpRight className="w-4 h-4" />
-                        </a>
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -214,7 +189,7 @@ export function SelectedWork({
                       className="w-full flex items-center justify-between text-xs font-mono text-zinc-400 hover:text-zinc-200 py-1"
                     >
                       <span className="flex items-center gap-2 uppercase tracking-wider">
-                        {isExpanded ? "Hide" : "Show"} Architecture & Performance Highlights
+                        {isExpanded ? "Hide" : "Show"} Engineering & Performance Highlights
                       </span>
                       {isExpanded ? (
                         <ChevronUp className="w-4 h-4" />

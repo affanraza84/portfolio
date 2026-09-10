@@ -5,7 +5,6 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { Positioning } from "@/components/Positioning";
 import { SelectedWork } from "@/components/SelectedWork";
-import { FlagshipCaseStudy } from "@/components/FlagshipCaseStudy";
 import { TechnicalMatrix } from "@/components/TechnicalMatrix";
 import { OpenSource } from "@/components/OpenSource";
 import { ExperienceTimeline } from "@/components/ExperienceTimeline";
@@ -26,13 +25,6 @@ export default function Home() {
     setContactModalOpen(false);
   };
 
-  const handleScrollToCaseStudy = () => {
-    const el = document.getElementById("case-study");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-[#09090b] text-[#f8fafc] flex flex-col font-sans selection:bg-amber-500/20 selection:text-amber-200 overflow-x-hidden w-full max-w-full">
       {/* Sticky Top Navigation */}
@@ -42,8 +34,7 @@ export default function Home() {
       <main className="flex-1 w-full max-w-full flex flex-col overflow-x-hidden">
         <Hero onOpenContact={handleOpenContact} />
         <Positioning />
-        <SelectedWork onSelectCaseStudy={handleScrollToCaseStudy} />
-        <FlagshipCaseStudy />
+        <SelectedWork />
         <TechnicalMatrix />
         <OpenSource />
         <ExperienceTimeline />

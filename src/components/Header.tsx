@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import {
   ArrowUpRight,
   FolderGit2,
-  Layers,
   Cpu,
   GitPullRequest,
   Briefcase,
@@ -15,7 +14,6 @@ import { Logo } from "@/components/Logo";
 
 const NAV_LINKS = [
   { name: "Work", href: "#work", id: "work", icon: FolderGit2 },
-  { name: "Architecture", href: "#case-study", id: "case-study", icon: Layers },
   { name: "Expertise", href: "#expertise", id: "expertise", icon: Cpu },
   { name: "Open Source", href: "#open-source", id: "open-source", icon: GitPullRequest },
   { name: "Experience", href: "#experience", id: "experience", icon: Briefcase },
