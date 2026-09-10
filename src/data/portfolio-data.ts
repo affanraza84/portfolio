@@ -119,6 +119,49 @@ export const FEATURED_PROJECTS: Project[] = [
     githubUrl: "https://github.com/affanraza84/Chat-Sapphire",
     caseStudyId: "realtime-chat",
   },
+  {
+    id: "codeflex-ai",
+    title: "CodeFlex AI — Intelligent Fitness & Workout Platform",
+    tagline: "AI-driven fitness ecosystem generating personalized workout routines, nutrition protocols, and progressive training programs.",
+    description:
+      "A modern full-stack web application leveraging AI models to build custom workout routines and nutrition plans tailored to user experience levels, dietary constraints, and fitness objectives.",
+    category: "Full-Stack AI Application",
+    isFeatured: true,
+    problem:
+      "Generic fitness templates fail to adapt to individual recovery constraints, dietary requirements, and equipment availability, while hiring personal trainers is cost-prohibitive for many users.",
+    solution:
+      "Built a full-stack Next.js application integrated with intelligent prompt-engineered AI models, Clerk authentication, responsive Tailwind UI components, and dynamic structured output schemas to generate complete fitness & diet programs in under 3 minutes.",
+    keyFeatures: [
+      "AI-driven workout generation based on user split preferences & equipment",
+      "Tailored nutritional guidance including macro targets and dietary exclusions",
+      "Secure user authentication and profile management powered by Clerk",
+      "Program gallery with exploreable workout splits and difficulty classifications",
+      "Cyberpunk-inspired dark UI with responsive cyber grids and scanline aesthetics",
+      "Instant program export and progressive overload tracking capabilities",
+    ],
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Clerk Auth",
+      "AI / LLMs",
+      "Vercel",
+    ],
+    myRole:
+      "Engineered end-to-end web application: crafted UI/UX design system, implemented Clerk authentication flows, connected AI model generation pipelines with structured response parsing, and deployed on Vercel.",
+    architectureHighlights: [
+      "Server-side API routes handling secure prompt generation and model execution",
+      "Protected user sessions with Clerk middleware and route guards",
+      "Optimized client-side rendering with sub-second page transitions",
+    ],
+    metricsOrHighlights: [
+      "Generates customized multi-week programs in under 3 minutes",
+      "100% personalized routines with adaptive safety protocols",
+    ],
+    liveUrl: "https://codeflex-ai-amber.vercel.app",
+    githubUrl: "https://github.com/affanraza84/codeflex-ai",
+  },
 ];
 
 export const FLAGSHIP_CASE_STUDY: CaseStudy = {
