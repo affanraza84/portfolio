@@ -8,10 +8,10 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, projectType, message } = body;
 
-    // Basic validation
+    // Validation
     if (!name || !email || !message) {
       return NextResponse.json(
-        { success: false, error: "Please provide name, email, and message." },
+        { success: false, error: "Please provide your name, email, and message." },
         { status: 400 }
       );
     }
@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // IP Address and User Agent metadata
+    // IP Address and User Agent
     const forwardedFor = req.headers.get("x-forwarded-for");
     const ipAddress = forwardedFor
       ? forwardedFor.split(",")[0].trim()
@@ -32,10 +32,14 @@ export async function POST(req: NextRequest) {
     const userAgent = req.headers.get("user-agent") || "unknown";
 
     let dbSaved = false;
+    let dbErrorMsg: string | null = null;
     let savedInquiryId = null;
 
-    // Attempt MongoDB save if configured
-    if (process.env.MONGODB_URI) {
+    const mongoUri = process.env.MONGODB_URI;
+    const isPlaceholderMongo = !mongoUri || mongoUri.includes("your_username") || mongoUri.includes("your_password");
+
+    // 1. Attempt MongoDB Save
+    if (mongoUri && !isPlaceholderMongo) {
       try {
         await connectToDatabase();
         const newInquiry = await Inquiry.create({
@@ -48,18 +52,20 @@ export async function POST(req: NextRequest) {
         });
         dbSaved = true;
         savedInquiryId = newInquiry._id;
-      } catch (dbError) {
-        console.error("MongoDB Save Error:", dbError);
-        // If DB fails, we still try to send email notification
+        console.log(`[MongoDB Success]: Saved inquiry from ${email} with ID ${newInquiry._id}`);
+      } catch (dbErr: unknown) {
+        dbErrorMsg = dbErr instanceof Error ? dbErr.message : "MongoDB connection/write error";
+        console.error("[MongoDB Error]:", dbErrorMsg);
       }
     } else {
-      console.warn(
-        "Notice: MONGODB_URI is not configured in .env.local. Skipping database insert."
-      );
+      dbErrorMsg = "MONGODB_URI contains placeholder credentials or is not set in .env.local";
+      console.warn(`[MongoDB Warning]: ${dbErrorMsg}`);
     }
 
-    // Attempt Email Notification
+    // 2. Attempt Email Notification
     let emailSent = false;
+    let emailErrorMsg: string | null = null;
+
     try {
       const emailResult = await sendInquiryNotification({
         name: name.trim(),
@@ -68,16 +74,25 @@ export async function POST(req: NextRequest) {
         message: message.trim(),
       });
       emailSent = emailResult.success;
-    } catch (mailError) {
-      console.error("Email Dispatch Error:", mailError);
+      if (!emailResult.success) {
+        emailErrorMsg = emailResult.reason || "Email not dispatched";
+      } else {
+        console.log(`[Email Success]: Notification sent to ${process.env.NOTIFICATION_EMAIL || "affanraza8081@gmail.com"}`);
+      }
+    } catch (mailErr: unknown) {
+      emailErrorMsg = mailErr instanceof Error ? mailErr.message : "Email transport error";
+      console.error("[Email Dispatch Error]:", emailErrorMsg);
     }
 
+    // Return detailed response
     return NextResponse.json(
       {
         success: true,
-        message: "Your message has been received! I will get back to you shortly.",
+        message: "Inquiry received successfully!",
         dbSaved,
+        dbError: dbErrorMsg,
         emailSent,
+        emailError: emailErrorMsg,
         inquiryId: savedInquiryId,
       },
       { status: 201 }

@@ -16,23 +16,19 @@ export async function sendInquiryNotification({
   const recipient = process.env.NOTIFICATION_EMAIL || "affanraza8081@gmail.com";
   const emailUser = process.env.EMAIL_USER;
   const emailPass = process.env.EMAIL_PASS;
-  const smtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
-  const smtpPort = parseInt(process.env.SMTP_PORT || "465", 10);
 
-  if (!emailUser || !emailPass) {
-    console.warn(
-      "[Notification Notice]: EMAIL_USER or EMAIL_PASS environment variables are not set. Skipping live email dispatch (inquiry is securely stored in MongoDB)."
-    );
-    return { success: false, reason: "Missing SMTP credentials" };
+  if (!emailUser || !emailPass || emailPass.includes("your_16_char_app_password")) {
+    const reason = "Gmail App Password (EMAIL_PASS) is not configured in .env.local";
+    console.warn(`[Notification Warning]: ${reason}`);
+    return { success: false, reason };
   }
 
+  // Use standard Gmail service for maximum compatibility with App Passwords
   const transporter = nodemailer.createTransport({
-    host: smtpHost,
-    port: smtpPort,
-    secure: smtpPort === 465,
+    service: "gmail",
     auth: {
       user: emailUser,
-      pass: emailPass,
+      pass: emailPass.replace(/\s+/g, ""), // remove any accidental spaces
     },
   });
 
@@ -95,7 +91,7 @@ ${message}
         </div>
 
         <div style="background-color: #070709; padding: 16px 32px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 11px; color: #64748b; font-family: monospace;">
-          Saved automatically to MongoDB &bull; Received at ${new Date().toISOString()}
+          Received at ${new Date().toISOString()}
         </div>
       </div>
     `,
