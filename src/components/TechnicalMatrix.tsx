@@ -69,26 +69,33 @@ export function TechnicalMatrix() {
                 </p>
 
                 {/* Skill List with Contextual Notes */}
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {cat.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="px-3 py-2 rounded-lg bg-[#0c0c0f] border border-white/[0.04] flex items-center justify-between hover:border-white/[0.12] transition-colors"
+                      className="p-3 rounded-lg bg-[#0c0c0f] border border-white/[0.04] hover:border-white/[0.12] transition-colors flex flex-col gap-1"
                     >
-                      <div className="flex items-center gap-2">
-                        {skill.highlight ? (
-                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
-                        ) : (
-                          <span className="w-1.5 h-1.5 rounded-full bg-zinc-600 shrink-0" />
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span
+                            className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                              skill.highlight ? "bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.5)]" : "bg-zinc-600"
+                            }`}
+                          />
+                          <span className="text-xs sm:text-sm font-semibold text-white truncate">
+                            {skill.name}
+                          </span>
+                        </div>
+                        {skill.highlight && (
+                          <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-400/10 text-amber-300/90 border border-amber-400/20 shrink-0">
+                            Core
+                          </span>
                         )}
-                        <span className="text-xs sm:text-sm font-medium text-white">
-                          {skill.name}
-                        </span>
                       </div>
                       {skill.note && (
-                        <span className="text-[11px] font-mono text-zinc-500">
+                        <p className="text-[11px] font-mono text-zinc-400 pl-3.5 leading-snug">
                           {skill.note}
-                        </span>
+                        </p>
                       )}
                     </div>
                   ))}
