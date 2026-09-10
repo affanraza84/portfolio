@@ -8,7 +8,6 @@ import {
   Database,
   Terminal,
   Cpu,
-  CheckCircle2,
 } from "lucide-react";
 
 export function TechnicalMatrix() {
@@ -89,11 +88,6 @@ export function TechnicalMatrix() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              <div className="mt-5 pt-3 border-t border-white/[0.04] flex items-center justify-between text-[11px] font-mono text-zinc-500">
-                <span>Production Verified</span>
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400/80" />
               </div>
             </div>
           ))}
