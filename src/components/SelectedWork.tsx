@@ -42,7 +42,7 @@ export function SelectedWork({
             </h2>
           </div>
           <p className="text-sm text-zinc-400 max-w-sm mt-4 md:mt-0">
-            A curated selection of real-time systems, scalable APIs, and full-stack web applications engineered for production reliability.
+            Production-grade real-time systems and architecture engineered for high concurrency, ultra-low latency, and scale.
           </p>
         </div>
 
