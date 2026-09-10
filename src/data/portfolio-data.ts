@@ -371,34 +371,6 @@ export const OPEN_SOURCE_RECOGNITIONS: OpenSourceContribution[] = [
 
 export const EXPERIENCE_HISTORY: ExperienceItem[] = [
   {
-    role: "Freelance Full-Stack Developer",
-    company: "Client Engagements (Contract)",
-    duration: "2025 – Present",
-    location: "Remote / Global",
-    type: "Freelance",
-    summary:
-      "Successfully engineered and delivered 4 production-grade freelance projects with 100% full success and client satisfaction, delivering responsive frontends, secure backend APIs, robust database architectures, and automated cloud deployments.",
-    responsibilities: [
-      "Successfully delivered 4 full-stack freelance projects with 100% on-time milestone delivery and client satisfaction.",
-      "Architected and developed modern web applications using Next.js, React, TypeScript, Node.js, and Tailwind CSS.",
-      "Engineered secure backend services with RESTful APIs, JWT authentication, and structured database models using PostgreSQL & MongoDB.",
-      "Translated client business requirements into intuitive UI/UX workflows and high-converting landing pages.",
-      "Configured end-to-end production deployments on Vercel/Cloud platforms with custom domains, SSL, and automated CI/CD.",
-    ],
-    skillsApplied: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Node.js",
-      "Express.js",
-      "PostgreSQL",
-      "MongoDB",
-      "Tailwind CSS",
-      "REST APIs",
-      "Client Management",
-    ],
-  },
-  {
     role: "Full Stack Engineer",
     company: "Transit Terminal",
     duration: "May 2026 – Jul 2026 · 3 mos",
@@ -460,6 +432,34 @@ export const EXPERIENCE_HISTORY: ExperienceItem[] = [
       "UI/UX Implementation",
       "Performance Optimization",
       "Git",
+    ],
+  },
+  {
+    role: "Freelance",
+    company: "",
+    duration: "2025 – Present",
+    location: "Remote / Global",
+    type: "Freelance",
+    summary:
+      "Successfully engineered and delivered 4 production-grade freelance projects with full success and client satisfaction, delivering responsive frontends, secure backend APIs, robust database architectures, and automated cloud deployments.",
+    responsibilities: [
+      "Successfully delivered 4 full-stack freelance projects with 100% on-time milestone delivery and client satisfaction.",
+      "Architected and developed modern web applications using Next.js, React, TypeScript, Node.js, and Tailwind CSS.",
+      "Engineered secure backend services with RESTful APIs, JWT authentication, and structured database models using PostgreSQL & MongoDB.",
+      "Translated client business requirements into intuitive UI/UX workflows and high-converting landing pages.",
+      "Configured end-to-end production deployments on Vercel/Cloud platforms with custom domains, SSL, and automated CI/CD.",
+    ],
+    skillsApplied: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "PostgreSQL",
+      "MongoDB",
+      "Tailwind CSS",
+      "REST APIs",
+      "Client Management",
     ],
   },
 ];

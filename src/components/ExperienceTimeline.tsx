@@ -43,9 +43,11 @@ export function ExperienceTimeline() {
                       {exp.role}
                     </h3>
                   </div>
-                  <div className="text-sm sm:text-base font-semibold text-zinc-300">
-                    {exp.company || exp.companyPlaceholder}
-                  </div>
+                  {exp.company && (
+                    <div className="text-sm sm:text-base font-semibold text-zinc-300">
+                      {exp.company}
+                    </div>
+                  )}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-zinc-400">
