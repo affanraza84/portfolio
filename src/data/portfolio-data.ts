@@ -115,8 +115,8 @@ export const FEATURED_PROJECTS: Project[] = [
       "Zero message drop during socket reconnection",
       "Granular rate limiting preventing flood attacks",
     ],
-    liveUrl: "https://github.com/affanraza84",
-    githubUrl: "https://github.com/affanraza84",
+    liveUrl: "https://chat-sapphire.vercel.app",
+    githubUrl: "https://github.com/affanraza84/Chat-Sapphire",
     caseStudyId: "realtime-chat",
   },
   {
@@ -294,8 +294,8 @@ export const FLAGSHIP_CASE_STUDY: CaseStudy = {
     "Redis",
     "Tailwind CSS",
   ],
-  githubUrl: "https://github.com/affanraza84",
-  liveUrl: "https://github.com/affanraza84",
+  githubUrl: "https://github.com/affanraza84/Chat-Sapphire",
+  liveUrl: "https://chat-sapphire.vercel.app",
 };
 
 export const SKILL_CATEGORIES: SkillCategory[] = [

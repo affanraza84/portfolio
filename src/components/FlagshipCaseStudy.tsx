@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { FLAGSHIP_CASE_STUDY } from "@/data/portfolio-data";
+import { GitHubIcon } from "@/components/SocialIcons";
 import {
   ShieldAlert,
   Zap,
@@ -10,6 +11,7 @@ import {
   HelpCircle,
   GitBranch,
   Lock,
+  ExternalLink,
 } from "lucide-react";
 
 export function FlagshipCaseStudy() {
@@ -26,18 +28,45 @@ export function FlagshipCaseStudy() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-14 pb-6 border-b border-white/[0.08]">
-          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">
-            <span>03</span>
-            <span>/</span>
-            <span>SYSTEM ARCHITECTURE DEEP DIVE</span>
+        <div className="mb-14 pb-6 border-b border-white/[0.08] flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">
+              <span>03</span>
+              <span>/</span>
+              <span>SYSTEM ARCHITECTURE DEEP DIVE</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
+              {study.title}
+            </h2>
+            <p className="text-sm sm:text-base text-zinc-400 max-w-3xl leading-relaxed">
+              {study.subtitle}
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white mb-3">
-            {study.title}
-          </h2>
-          <p className="text-sm sm:text-base text-zinc-400 max-w-3xl leading-relaxed">
-            {study.subtitle}
-          </p>
+
+          <div className="flex items-center gap-3 shrink-0">
+            {study.githubUrl && (
+              <a
+                href={study.githubUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-mono text-zinc-300 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-md transition-colors"
+              >
+                <GitHubIcon className="w-3.5 h-3.5" />
+                <span>Code Repository</span>
+              </a>
+            )}
+            {study.liveUrl && (
+              <a
+                href={study.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-mono text-zinc-950 bg-white hover:bg-zinc-200 font-medium rounded-md transition-colors shadow-sm"
+              >
+                <span>Live Demo</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            )}
+          </div>
         </div>
 
         {/* Overview & High-Level Narrative */}
