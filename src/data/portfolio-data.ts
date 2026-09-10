@@ -12,7 +12,7 @@ export const PERSONAL_INFO = {
   fullName: "Affan Raza",
   title: "Full-Stack Developer",
   tagline: "Building digital products that are fast, scalable, and built to last.",
-  bio: "I’m Affan, a Full-Stack Developer with 4 successfully delivered freelance projects, 6 months of industry internship experience, and top 1% open-source recognition.",
+  bio: "I’m Affan, a Full-Stack Developer focused on building modern web applications, scalable backend systems, and polished digital experiences.",
   positioningStatement:
     "I don’t just build interfaces. I build reliable digital products — from the first line of code to deployment.",
   status: "Available for select freelance & full-time roles",
