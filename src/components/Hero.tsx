@@ -14,21 +14,11 @@ import {
 
 export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center pt-24 pb-16 md:pt-32 md:pb-24 border-b border-white/[0.08] bg-grid-pattern overflow-hidden">
+    <section className="relative min-h-[85vh] flex flex-col justify-center pt-24 pb-14 md:pt-32 md:pb-20 border-b border-white/[0.08] bg-grid-pattern overflow-hidden">
       {/* Subtle radial ambient glow behind typography */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-amber-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        {/* Top Identification Pill */}
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] text-xs font-mono text-zinc-300 mb-8 backdrop-blur-sm">
-          <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-          <span className="text-zinc-400">ROLE:</span>
-          <span className="text-white font-medium">FULL-STACK DEVELOPER</span>
-          <span className="text-zinc-600">/</span>
-          <span className="text-zinc-400">FOCUS:</span>
-          <span className="text-zinc-200">SYSTEMS & MODERN WEB</span>
-        </div>
-
         {/* Primary Confident Headline */}
         <div className="max-w-4xl">
           <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6">
