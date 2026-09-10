@@ -56,9 +56,9 @@ export function OpenSource() {
                 </p>
 
                 {/* Highlights List */}
-                <div className="space-y-2.5 mb-6">
+                <div className="space-y-2.5">
                   <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block">
-                    Key Contributions & Standards:
+                    Key Contributions &amp; Standards:
                   </span>
                   {recog.highlights.map((h, hIdx) => (
                     <div
@@ -70,21 +70,6 @@ export function OpenSource() {
                     </div>
                   ))}
                 </div>
-              </div>
-
-              {/* Technologies Applied */}
-              <div className="pt-4 border-t border-white/[0.06] flex flex-wrap items-center gap-1.5">
-                <span className="text-[11px] font-mono text-zinc-500 mr-1">
-                  Stack:
-                </span>
-                {recog.skillsUsed.map((skill) => (
-                  <span
-                    key={skill}
-                    className="text-[11px] font-mono px-2 py-0.5 rounded bg-white/[0.04] text-zinc-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
               </div>
             </div>
           ))}
