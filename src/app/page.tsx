@@ -34,12 +34,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#f8fafc] flex flex-col font-sans selection:bg-amber-500/20 selection:text-amber-200">
+    <div className="min-h-screen bg-[#09090b] text-[#f8fafc] flex flex-col font-sans selection:bg-amber-500/20 selection:text-amber-200 overflow-x-hidden w-full max-w-full">
       {/* Sticky Top Navigation */}
       <Header onOpenContact={handleOpenContact} />
 
       {/* Main Content Sections */}
-      <main className="flex-1 w-full flex flex-col">
+      <main className="flex-1 w-full max-w-full flex flex-col overflow-x-hidden">
         <Hero onOpenContact={handleOpenContact} />
         <Positioning />
         <SelectedWork onSelectCaseStudy={handleScrollToCaseStudy} />
