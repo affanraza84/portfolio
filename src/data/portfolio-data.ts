@@ -389,6 +389,21 @@ export const OPEN_SOURCE_RECOGNITIONS: OpenSourceContribution[] = [
     ],
     skillsUsed: ["Next.js", "Tailwind CSS", "JavaScript", "REST APIs", "Peer Code Reviews"],
   },
+  {
+    program: "UnvibeCode Open Source Challenge 2026",
+    title: "Rank 64th Contributor",
+    badge: "Rank 64th",
+    rank: "Rank 64",
+    description:
+      "Earned Rank 64th in the competitive UnvibeCode Open Source Challenge 2026, delivering high-impact feature contributions, architectural fixes, and performant code across open-source repositories.",
+    highlights: [
+      "Earned Rank 64th globally across thousands of competitive open-source participants",
+      "Shipped modular frontend components, backend endpoint optimizations, and clean UI workflows",
+      "Maintained strict Git commit practices, peer reviews, and comprehensive PR documentation",
+      "Demonstrated rapid problem solving and high velocity across competitive sprint deadlines",
+    ],
+    skillsUsed: ["TypeScript", "Next.js", "React", "Node.js", "Git Workflow"],
+  },
 ];
 
 export const EXPERIENCE_HISTORY: ExperienceItem[] = [

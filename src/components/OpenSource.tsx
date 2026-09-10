@@ -26,11 +26,11 @@ export function OpenSource() {
         </div>
 
         {/* Recognitions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {OPEN_SOURCE_RECOGNITIONS.map((recog, idx) => (
             <div
               key={recog.program}
-              className="p-6 sm:p-8 rounded-xl bg-[#111115] border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between group"
+              className="p-6 sm:p-7 rounded-xl bg-[#111115] border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-black/40"
             >
               <div>
                 {/* Top Badge & Tier */}
