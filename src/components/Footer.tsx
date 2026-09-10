@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { Logo } from "@/components/Logo";
 import { PERSONAL_INFO } from "@/data/portfolio-data";
 import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
 import { ArrowUp, Mail } from "lucide-react";
@@ -13,20 +14,15 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#070709] py-12 text-zinc-400 text-xs font-mono">
+    <footer className="border-t border-white/[0.08] bg-[#070709] pt-12 pb-24 md:pb-12 text-zinc-400 text-xs font-mono">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Brand & Copy */}
           <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400" />
-              <span className="font-semibold text-white">
-                {PERSONAL_INFO.fullName}
-              </span>
-            </div>
+            <Logo size="sm" />
             <span className="hidden sm:inline text-zinc-700">|</span>
             <span>
-              &copy; {currentYear} &bull; Crafted with Next.js, TypeScript & Tailwind CSS
+              &copy; {currentYear} &bull; Crafted with Next.js, TypeScript &amp; Tailwind CSS
             </span>
           </div>
 
