@@ -5,9 +5,10 @@ export interface IInquiry extends Document {
   email: string;
   projectType: string;
   message: string;
-  createdAt: Date;
   ipAddress?: string;
   userAgent?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const InquirySchema: Schema<IInquiry> = new Schema(
@@ -23,10 +24,6 @@ const InquirySchema: Schema<IInquiry> = new Schema(
       required: [true, "Email is required"],
       trim: true,
       lowercase: true,
-      match: [
-        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/,
-        "Please provide a valid email address",
-      ],
     },
     projectType: {
       type: String,
@@ -37,7 +34,7 @@ const InquirySchema: Schema<IInquiry> = new Schema(
       type: String,
       required: [true, "Message is required"],
       trim: true,
-      maxlength: [2000, "Message cannot exceed 2000 characters"],
+      maxlength: [5000, "Message cannot exceed 5000 characters"],
     },
     ipAddress: {
       type: String,
@@ -50,8 +47,9 @@ const InquirySchema: Schema<IInquiry> = new Schema(
   },
   {
     timestamps: true,
+    collection: "inquiries",
   }
 );
 
 export const Inquiry: Model<IInquiry> =
-  mongoose.models.Inquiry || mongoose.model<IInquiry>("Inquiry", InquirySchema);
+  mongoose.models.Inquiry || mongoose.model<IInquiry>("Inquiry", InquirySchema, "inquiries");

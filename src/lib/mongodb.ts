@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-
 interface MongooseCache {
   conn: typeof mongoose | null;
   promise: Promise<typeof mongoose> | null;
 }
 
 declare global {
+  // eslint-disable-next-line no-var
   var mongooseCache: MongooseCache | undefined;
 }
 
@@ -21,22 +20,26 @@ if (!global.mongooseCache) {
 }
 
 export async function connectToDatabase(): Promise<typeof mongoose> {
-  if (!MONGODB_URI) {
+  const mongoUri = process.env.MONGODB_URI;
+
+  if (!mongoUri || mongoUri.includes("your_username") || mongoUri.includes("your_password")) {
     throw new Error(
-      "Please define the MONGODB_URI environment variable inside .env.local"
+      "MONGODB_URI is missing or contains placeholder credentials in .env.local. Please provide your real MongoDB Atlas connection string."
     );
   }
 
-  if (cached.conn) {
+  if (cached.conn && mongoose.connection.readyState === 1) {
     return cached.conn;
   }
 
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 10000,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongooseInstance) => {
+    cached.promise = mongoose.connect(mongoUri, opts).then((mongooseInstance) => {
       return mongooseInstance;
     });
   }

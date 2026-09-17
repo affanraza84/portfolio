@@ -16,8 +16,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
-    if (!emailRegex.test(email)) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.trim())) {
       return NextResponse.json(
         { success: false, error: "Please enter a valid email address." },
         { status: 400 }
@@ -35,31 +35,23 @@ export async function POST(req: NextRequest) {
     let dbErrorMsg: string | null = null;
     let savedInquiryId = null;
 
-    const mongoUri = process.env.MONGODB_URI;
-    const isPlaceholderMongo = !mongoUri || mongoUri.includes("your_username") || mongoUri.includes("your_password");
-
     // 1. Attempt MongoDB Save
-    if (mongoUri && !isPlaceholderMongo) {
-      try {
-        await connectToDatabase();
-        const newInquiry = await Inquiry.create({
-          name: name.trim(),
-          email: email.trim().toLowerCase(),
-          projectType: projectType || "Full-Stack Web App",
-          message: message.trim(),
-          ipAddress,
-          userAgent,
-        });
-        dbSaved = true;
-        savedInquiryId = newInquiry._id;
-        console.log(`[MongoDB Success]: Saved inquiry from ${email} with ID ${newInquiry._id}`);
-      } catch (dbErr: unknown) {
-        dbErrorMsg = dbErr instanceof Error ? dbErr.message : "MongoDB connection/write error";
-        console.error("[MongoDB Error]:", dbErrorMsg);
-      }
-    } else {
-      dbErrorMsg = "MONGODB_URI contains placeholder credentials or is not set in .env.local";
-      console.warn(`[MongoDB Warning]: ${dbErrorMsg}`);
+    try {
+      await connectToDatabase();
+      const newInquiry = await Inquiry.create({
+        name: name.trim(),
+        email: email.trim().toLowerCase(),
+        projectType: projectType || "Full-Stack Web App",
+        message: message.trim(),
+        ipAddress,
+        userAgent,
+      });
+      dbSaved = true;
+      savedInquiryId = newInquiry._id;
+      console.log(`[MongoDB Success]: Saved inquiry from ${email} to Atlas (ID: ${newInquiry._id})`);
+    } catch (dbErr: unknown) {
+      dbErrorMsg = dbErr instanceof Error ? dbErr.message : "MongoDB connection/write error";
+      console.error("[MongoDB Error]:", dbErrorMsg);
     }
 
     // 2. Attempt Email Notification
@@ -84,7 +76,22 @@ export async function POST(req: NextRequest) {
       console.error("[Email Dispatch Error]:", emailErrorMsg);
     }
 
-    // Return detailed response
+    // If both failed, return a 500 error
+    if (!dbSaved && !emailSent) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: dbErrorMsg || emailErrorMsg || "Failed to process inquiry.",
+          dbSaved,
+          dbError: dbErrorMsg,
+          emailSent,
+          emailError: emailErrorMsg,
+        },
+        { status: 500 }
+      );
+    }
+
+    // Return successful response
     return NextResponse.json(
       {
         success: true,
@@ -98,12 +105,11 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error: unknown) {
-    console.error("Contact API Route Error:", error);
-    const errorMessage = error instanceof Error ? error.message : "Internal server error";
+    console.error("[Contact API Error]:", error);
     return NextResponse.json(
       {
         success: false,
-        error: errorMessage,
+        error: error instanceof Error ? error.message : "Internal Server Error",
       },
       { status: 500 }
     );
