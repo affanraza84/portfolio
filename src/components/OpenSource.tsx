@@ -6,66 +6,66 @@ import { Award, GitPullRequest, Users, CheckCircle2 } from "lucide-react";
 
 export function OpenSource() {
   return (
-    <section id="open-source" className="py-20 md:py-32 border-b border-white/[0.08] bg-[#0c0c10]">
+    <section id="open-source" className="py-20 md:py-28 border-b border-[#D9D9D4] bg-[#F5F4EF]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 pb-6 border-b border-white/[0.08]">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 pb-6 border-b border-[#D9D9D4]">
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-amber-400 mb-2">
-              <span>05</span>
+            <div className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-widest text-[#5F6368] mb-3">
+              <span className="text-[#2457FF] font-bold">05</span>
               <span>/</span>
-              <span>OPEN SOURCE IMPACT & CREDIBILITY</span>
+              <span>TECHNICAL DEPTH &amp; OPEN SOURCE RECOGNITION</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold tracking-tight text-white">
-              Global Open Source Recognition
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#171717]">
+              Open Source Impact &amp; Evidence
             </h2>
           </div>
-          <p className="text-sm text-zinc-400 max-w-sm mt-4 md:mt-0">
-            Demonstrated mastery in real-world distributed collaboration, resolving critical issues, and maintaining high codebase standards.
+          <p className="text-xs sm:text-sm text-[#5F6368] max-w-sm mt-4 md:mt-0 font-normal leading-relaxed">
+            Demonstrated technical excellence in distributed systems, asynchronous PR review cycles, and large-scale codebase contributions.
           </p>
         </div>
 
         {/* Recognitions Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {OPEN_SOURCE_RECOGNITIONS.map((recog, idx) => (
             <div
               key={recog.program}
-              className="p-6 sm:p-7 rounded-xl bg-[#111115] border border-amber-500/20 hover:border-amber-500/40 transition-all flex flex-col justify-between group shadow-sm hover:shadow-lg hover:shadow-black/40"
+              className="p-6 rounded-lg bg-white border border-[#D9D9D4] hover:border-[#2457FF] transition-all flex flex-col justify-between shadow-xs group"
             >
               <div>
                 {/* Top Badge & Tier */}
-                <div className="flex items-center justify-between gap-4 mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-mono font-medium">
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#2457FF]/10 text-[#2457FF] text-xs font-mono font-bold">
                     <Award className="w-3.5 h-3.5" />
                     <span>{recog.badge}</span>
                   </div>
-                  <span className="text-xs font-mono text-zinc-500">
-                    PROGRAM 0{idx + 1}
+                  <span className="text-[10px] font-mono text-[#5F6368] font-bold">
+                    INDEX 0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-1">
+                <h3 className="text-xl font-bold text-[#171717] mb-1 group-hover:text-[#2457FF] transition-colors">
                   {recog.program}
                 </h3>
-                <div className="text-xs font-mono text-zinc-400 mb-4">
+                <div className="text-xs font-mono text-[#2457FF] font-semibold mb-3">
                   {recog.title}
                 </div>
 
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-6">
+                <p className="text-xs sm:text-sm text-[#5F6368] leading-relaxed mb-5 font-sans">
                   {recog.description}
                 </p>
 
                 {/* Highlights List */}
-                <div className="space-y-2.5">
-                  <span className="text-[11px] font-mono uppercase tracking-wider text-zinc-400 block">
-                    Key Contributions &amp; Standards:
+                <div className="space-y-2 pt-3 border-t border-[#D9D9D4]">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368] block mb-1 font-semibold">
+                    VERIFIED CONTRIBUTIONS:
                   </span>
                   {recog.highlights.map((h, hIdx) => (
                     <div
                       key={hIdx}
-                      className="flex items-start gap-2 text-xs sm:text-sm text-zinc-300"
+                      className="flex items-start gap-2 text-xs text-[#171717]"
                     >
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400/90 shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                       <span>{h}</span>
                     </div>
                   ))}
@@ -76,22 +76,22 @@ export function OpenSource() {
         </div>
 
         {/* Bottom Credibility Callout */}
-        <div className="mt-8 p-6 rounded-xl bg-[#111115] border border-white/[0.07] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="mt-6 p-5 rounded-lg bg-white border border-[#D9D9D4] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xs">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-white/[0.04] border border-white/10 flex items-center justify-center shrink-0">
-              <GitPullRequest className="w-5 h-5 text-amber-400" />
+            <div className="w-9 h-9 rounded-md bg-[#F5F4EF] border border-[#D9D9D4] flex items-center justify-center shrink-0">
+              <GitPullRequest className="w-4.5 h-4.5 text-[#2457FF]" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-white">
-                Distributed Team Collaboration & Strict Git Standards
+              <h4 className="text-sm font-bold text-[#171717]">
+                Distributed Collaboration &amp; Strict Git Architecture
               </h4>
-              <p className="text-xs text-zinc-400">
-                Experienced in asynchronous PR discussions, semantic versioning, clean commit histories, and resolving complex merge conflicts.
+              <p className="text-xs text-[#5F6368] mt-0.5">
+                Experienced in asynchronous RFC discussions, semantic versioning, linear commit trees, and zero-downtime merge strategies.
               </p>
             </div>
           </div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/[0.05] border border-white/10 text-xs font-mono text-zinc-300 shrink-0">
-            <Users className="w-3.5 h-3.5 text-zinc-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#F5F4EF] border border-[#D9D9D4] text-xs font-mono text-[#171717] shrink-0 font-medium">
+            <Users className="w-3.5 h-3.5 text-[#2457FF]" />
             <span>Community Verified</span>
           </div>
         </div>

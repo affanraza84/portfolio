@@ -26,7 +26,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#f8fafc] flex flex-col font-sans selection:bg-amber-500/20 selection:text-amber-200 overflow-x-hidden w-full max-w-full">
+    <div className="min-h-screen bg-[#F5F4EF] text-[#171717] flex flex-col font-sans selection:bg-[#2457FF]/15 selection:text-[#171717] overflow-x-hidden w-full max-w-full">
       {/* Sticky Top Navigation */}
       <Header onOpenContact={handleOpenContact} />
 

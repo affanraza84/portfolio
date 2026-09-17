@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PERSONAL_INFO } from "@/data/portfolio-data";
 import { GitHubIcon, LinkedInIcon } from "@/components/SocialIcons";
 import {
@@ -11,137 +11,265 @@ import {
   Award,
   Briefcase,
   CheckCircle2,
+  Activity,
+  Globe,
 } from "lucide-react";
 
 export function Hero({ onOpenContact }: { onOpenContact?: () => void }) {
+  const [inView, setInView] = useState(false);
+  const [statFreelance, setStatFreelance] = useState(0);
+  const [statInternship, setStatInternship] = useState(0);
+  const [statRank, setStatRank] = useState(0);
+  const [currentTime, setCurrentTime] = useState("");
+  const statsRef = useRef<HTMLDivElement>(null);
+
+  // Live system clock
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(
+        now.toLocaleTimeString("en-US", {
+          timeZone: "Asia/Kolkata",
+          hour12: false,
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }) + " IST"
+      );
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (statsRef.current) {
+      observer.observe(statsRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Metric count-up
+  useEffect(() => {
+    if (!inView) return;
+
+    const duration = 1000;
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      setStatFreelance(Math.round(eased * 4));
+      setStatInternship(Math.round(eased * 6));
+      setStatRank(Math.round(eased * 64));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [inView]);
+
   return (
-    <section className="relative min-h-[85vh] flex flex-col justify-center pt-24 pb-14 md:pt-32 md:pb-20 border-b border-white/[0.08] bg-grid-pattern overflow-hidden">
-      {/* Subtle radial ambient glow behind typography */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-amber-500/[0.03] rounded-full blur-[120px] pointer-events-none" />
-
+    <section className="relative min-h-[85vh] flex flex-col justify-center pt-28 pb-16 md:pt-36 md:pb-24 border-b border-[#D9D9D4] bg-swiss-grid overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        {/* Primary Confident Headline */}
-        <div className="max-w-4xl">
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6">
-            Building digital products that are{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-zinc-200 to-zinc-400">
-              fast
-            </span>
-            ,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-white to-zinc-400">
-              scalable
-            </span>
-            , and{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-500">
-              built to last
-            </span>
-            .
-          </h1>
+        {/* Technical Header Identifier */}
+        <div className="flex items-center justify-between border-b border-[#D9D9D4] pb-3 mb-8">
+          <div className="flex items-center gap-2 text-[11px] font-mono tracking-widest uppercase text-[#5F6368]">
+            <span className="text-[#2457FF] font-bold">01</span>
+            <span>/</span>
+            <span>INTRODUCTION</span>
+            <span className="hidden sm:inline">&bull;</span>
+            <span className="hidden sm:inline">SYS_REF: 2026.AR-01</span>
+          </div>
+          <div className="flex items-center gap-2 text-[11px] font-mono text-[#5F6368]">
+            <Activity className="w-3.5 h-3.5 text-[#2457FF]" />
+            <span className="font-medium text-[#171717]">{currentTime || "LIVE"}</span>
+          </div>
+        </div>
 
-          {/* Editorial Supporting Copy */}
-          <p className="text-lg sm:text-xl text-zinc-400 leading-relaxed font-normal max-w-2xl mb-10">
-            {PERSONAL_INFO.bio}
-          </p>
+        {/* 12-Column Engineering Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 items-start">
+          {/* Left Column (8 cols): Primary Engineering Statement */}
+          <div className="lg:col-span-8">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#171717] leading-[1.08] mb-6">
+              Building digital products that are{" "}
+              <span className="text-[#2457FF]">fast</span>,{" "}
+              <span className="text-[#2457FF]">scalable</span>, and engineered to last.
+            </h1>
 
-          {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-4 mb-16">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                if (onOpenContact) {
-                  e.preventDefault();
-                  onOpenContact();
-                }
-              }}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold tracking-wide uppercase text-zinc-950 bg-white hover:bg-zinc-200 active:scale-[0.98] rounded-md shadow-md transition-all"
-            >
-              <span>Let&apos;s Work Together</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
+            <p className="text-base sm:text-lg text-[#5F6368] leading-relaxed max-w-2xl mb-8 font-normal">
+              {PERSONAL_INFO.bio}
+            </p>
 
-            <a
-              href="#work"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-medium tracking-wide uppercase text-zinc-300 hover:text-white border border-white/10 hover:border-white/25 bg-white/[0.02] hover:bg-white/[0.05] rounded-md transition-all"
-            >
-              <span>View My Work</span>
-              <ArrowDown className="w-4 h-4 text-zinc-500 group-hover:text-white" />
-            </a>
-
-            {/* Social Direct Links */}
-            <div className="flex items-center gap-2 pl-2 sm:border-l sm:border-white/10 sm:ml-2">
+            {/* Action CTAs */}
+            <div className="flex flex-wrap items-center gap-3.5">
               <a
-                href={PERSONAL_INFO.github}
-                target="_blank"
-                rel="noreferrer"
-                className="p-3 text-zinc-400 hover:text-white hover:bg-white/5 rounded-md border border-transparent hover:border-white/10 transition-colors"
-                aria-label="GitHub Profile"
+                href="#contact"
+                onClick={(e) => {
+                  if (onOpenContact) {
+                    e.preventDefault();
+                    onOpenContact();
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 text-xs font-semibold tracking-wider uppercase text-white bg-[#171717] hover:bg-[#2457FF] active:scale-[0.98] rounded-md transition-all duration-150 shadow-xs"
               >
-                <GitHubIcon className="w-5 h-5" />
+                <span>Let&apos;s Work Together</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </a>
+
               <a
-                href={PERSONAL_INFO.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="p-3 text-zinc-400 hover:text-white hover:bg-white/5 rounded-md border border-transparent hover:border-white/10 transition-colors"
-                aria-label="LinkedIn Profile"
+                href="#work"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 text-xs font-medium tracking-wider uppercase text-[#171717] hover:text-[#2457FF] border border-[#D9D9D4] hover:border-[#2457FF] bg-white rounded-md transition-all duration-150"
               >
-                <LinkedInIcon className="w-5 h-5" />
+                <span>Technical Archive</span>
+                <ArrowDown className="w-3.5 h-3.5 text-[#5F6368]" />
               </a>
-              <a
-                href={`mailto:${PERSONAL_INFO.email}`}
-                className="p-3 text-zinc-400 hover:text-white hover:bg-white/5 rounded-md border border-transparent hover:border-white/10 transition-colors"
-                aria-label="Direct Email"
-              >
-                <Mail className="w-5 h-5" />
-              </a>
+
+              {/* Social Direct Links */}
+              <div className="flex items-center gap-1.5 pl-2 sm:border-l sm:border-[#D9D9D4] sm:ml-2">
+                <a
+                  href={PERSONAL_INFO.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 text-[#5F6368] hover:text-[#171717] hover:bg-black/[0.04] rounded-md border border-transparent hover:border-[#D9D9D4] transition-colors"
+                  aria-label="GitHub Profile"
+                >
+                  <GitHubIcon className="w-4.5 h-4.5" />
+                </a>
+                <a
+                  href={PERSONAL_INFO.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 text-[#5F6368] hover:text-[#171717] hover:bg-black/[0.04] rounded-md border border-transparent hover:border-[#D9D9D4] transition-colors"
+                  aria-label="LinkedIn Profile"
+                >
+                  <LinkedInIcon className="w-4.5 h-4.5" />
+                </a>
+                <a
+                  href={`mailto:${PERSONAL_INFO.email}`}
+                  className="p-2.5 text-[#5F6368] hover:text-[#171717] hover:bg-black/[0.04] rounded-md border border-transparent hover:border-[#D9D9D4] transition-colors"
+                  aria-label="Direct Email"
+                >
+                  <Mail className="w-4.5 h-4.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column (4 cols): Technical Instrument & Metadata Card */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="p-5 rounded-lg bg-white border border-[#D9D9D4] shadow-xs">
+              <div className="flex items-center justify-between border-b border-[#D9D9D4] pb-3 mb-4">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368]">
+                  SYSTEM TELEMETRY
+                </span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#2457FF]/10 text-[10px] font-mono text-[#2457FF] font-semibold">
+                  ACTIVE
+                </span>
+              </div>
+
+              <dl className="space-y-3 font-mono text-xs">
+                <div className="flex justify-between items-center py-1 border-b border-[#F0F0EB]">
+                  <dt className="text-[#5F6368] uppercase">ROLE</dt>
+                  <dd className="font-semibold text-[#171717]">Full-Stack Engineer</dd>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-[#F0F0EB]">
+                  <dt className="text-[#5F6368] uppercase">FOCUS</dt>
+                  <dd className="font-medium text-[#171717]">Distributed Systems &bull; Next.js</dd>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-[#F0F0EB]">
+                  <dt className="text-[#5F6368] uppercase">LOCATION</dt>
+                  <dd className="font-medium text-[#171717] flex items-center gap-1">
+                    <Globe className="w-3 h-3 text-[#2457FF]" />
+                    <span>India (UTC+5:30)</span>
+                  </dd>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-[#F0F0EB]">
+                  <dt className="text-[#5F6368] uppercase">COORDINATES</dt>
+                  <dd className="text-[#5F6368]">28.6139° N, 77.2090° E</dd>
+                </div>
+                <div className="flex justify-between items-center py-1">
+                  <dt className="text-[#5F6368] uppercase">AVAILABILITY</dt>
+                  <dd className="text-emerald-700 font-semibold flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
+                    <span>Open to Opportunities</span>
+                  </dd>
+                </div>
+              </dl>
             </div>
           </div>
         </div>
 
-        {/* Structured Credibility Matrix */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 pt-8 border-t border-white/[0.08]">
-          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
+        {/* Structured Credibility Strip with Count-Up */}
+        <div
+          ref={statsRef}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-6 border-t border-[#D9D9D4]"
+        >
+          <div className="p-4 rounded-lg bg-white border border-[#D9D9D4] hover:border-[#2457FF] transition-colors shadow-xs">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                Engineering
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368] font-medium">
+                Engineering Focus
               </span>
-              <Terminal className="w-4 h-4 text-zinc-500" />
+              <Terminal className="w-3.5 h-3.5 text-[#2457FF]" />
             </div>
-            <div className="text-sm font-semibold text-white">Full-Stack Developer</div>
-            <div className="text-xs text-zinc-400 mt-1">End-to-end architecture &amp; APIs</div>
+            <div className="text-sm font-bold text-[#171717]">Full-Stack Systems</div>
+            <div className="text-xs text-[#5F6368] mt-1 font-mono">End-to-end APIs &bull; DBs &bull; Realtime</div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
+          <div className="p-4 rounded-lg bg-white border border-[#D9D9D4] hover:border-[#2457FF] transition-colors shadow-xs">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                Client Success
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368] font-medium">
+                Client Delivery
               </span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
             </div>
-            <div className="text-sm font-semibold text-white">4 Freelance Projects</div>
-            <div className="text-xs text-emerald-400/90 mt-1 font-medium">Delivered with 100% full success</div>
+            <div className="text-sm font-bold text-[#171717]">
+              {statFreelance} Freelance Projects
+            </div>
+            <div className="text-xs text-emerald-700 mt-1 font-mono font-medium">
+              100% production completion rate
+            </div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
+          <div className="p-4 rounded-lg bg-white border border-[#D9D9D4] hover:border-[#2457FF] transition-colors shadow-xs">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                Industry
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368] font-medium">
+                Industry Experience
               </span>
-              <Briefcase className="w-4 h-4 text-zinc-500" />
+              <Briefcase className="w-3.5 h-3.5 text-[#2457FF]" />
             </div>
-            <div className="text-sm font-semibold text-white">6 Months Internship</div>
-            <div className="text-xs text-zinc-400 mt-1">Transit Terminal &amp; BinaryFlo</div>
+            <div className="text-sm font-bold text-[#171717]">
+              {statInternship} Months Internship
+            </div>
+            <div className="text-xs text-[#5F6368] mt-1 font-mono">Transit Terminal &bull; BinaryFlo</div>
           </div>
 
-          <div className="p-4 rounded-lg bg-[#111115]/90 border border-white/[0.07] hover:border-white/[0.15] transition-colors">
+          <div className="p-4 rounded-lg bg-white border border-[#D9D9D4] hover:border-[#2457FF] transition-colors shadow-xs">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400/90 font-medium">
-                Open Source
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#5F6368] font-medium">
+                Open Source Impact
               </span>
-              <Award className="w-4 h-4 text-zinc-500" />
+              <Award className="w-3.5 h-3.5 text-[#2457FF]" />
             </div>
-            <div className="text-sm font-semibold text-white">Top 1% Contributor</div>
-            <div className="text-xs text-zinc-400 mt-1">GSSoC, SSoC &amp; Rank 64 UnvibeCode</div>
+            <div className="text-sm font-bold text-[#171717]">Top 1% Contributor</div>
+            <div className="text-xs text-[#5F6368] mt-1 font-mono">
+              GSSoC &bull; SSoC &bull; Rank {statRank} Unvibe
+            </div>
           </div>
         </div>
       </div>
