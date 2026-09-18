@@ -229,7 +229,7 @@ export function ContactSection() {
                       message: "",
                     });
                   }}
-                  className="inline-flex items-center gap-1 text-xs font-mono text-[#2457FF] hover:underline pt-2 font-semibold"
+                  className="inline-flex items-center gap-1 text-xs font-mono text-[#2457FF] hover:underline pt-2 font-semibold cursor-pointer"
                 >
                   Send another message
                 </button>
@@ -317,7 +317,7 @@ export function ContactSection() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-[#171717] text-white hover:bg-[#2457FF] disabled:opacity-75 font-semibold text-xs uppercase tracking-wider transition-all shadow-xs active:scale-[0.99]"
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-[#171717] text-white hover:bg-[#2457FF] disabled:opacity-75 font-semibold text-xs uppercase tracking-wider transition-all shadow-xs active:scale-[0.99] cursor-pointer"
                 >
                   {loading ? (
                     <>

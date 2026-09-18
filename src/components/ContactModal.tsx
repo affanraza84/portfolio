@@ -73,7 +73,7 @@ export function ContactModal({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-[#5F6368] hover:text-[#171717] rounded-md hover:bg-black/[0.04] transition-colors"
+          className="absolute top-5 right-5 p-2 text-[#5F6368] hover:text-[#171717] rounded-md hover:bg-black/4 transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
@@ -100,7 +100,7 @@ export function ContactModal({
           </div>
           <button
             onClick={handleCopy}
-            className="px-2.5 py-1 rounded bg-white hover:bg-[#E8E8E3] border border-[#D9D9D4] text-xs font-mono text-[#171717] flex items-center gap-1 shrink-0 transition-colors"
+            className="px-2.5 py-1 rounded bg-white hover:bg-[#E8E8E3] border border-[#D9D9D4] text-xs font-mono text-[#171717] flex items-center gap-1 shrink-0 transition-colors cursor-pointer"
           >
             {copied ? (
               <>
